@@ -20,7 +20,6 @@ int main()
         switch (choice)
         {
 
-
         case 1:
             printf("Enter the element\n");
             scanf("%d", &d);
