@@ -14,4 +14,5 @@ void deleteRear(NODE **first);
 void insertPos(int d, int pos, NODE **first);
 void reverse(NODE **first);
 void display(NODE *first);
+void reverseRead(NODE *first);
 void deleteAtPos(NODE **first, int pos);
