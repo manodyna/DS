@@ -8,11 +8,11 @@
 
 int main()
 {
-    NODE *first=NULL;
+    NODE *first = NULL;
     int choice, d;
     printf("Enter your choice \n1) Insert data at front of the list\n2) Display the list\n");
-    printf("3) Insert data at rear end\n4) Delete at front\n5) Delete at rear\n6) Insert at position\n7) Delete at position\n");
-    printf("8) Delete at position\n9) Reverse the list\n");
+    printf("3) Insert data at rear end\n4) Delete at front\n5) Delete at rear\n6) Insert at position\n");
+    printf("7) Delete at position\n8) Reverse read the list\n");
     while (1)
     {
         printf("Enter your choice\n");
@@ -55,29 +55,23 @@ int main()
             scanf("%d %d", &pos, &d);
             insertPos(pos, d, &first);
             break;
-
-        // case 5:
-        //     printf("Ordered Insertion\n Enter the element");
-        //     scanf("%d", &d);
-        //     insert_in_order(d, &first);
-        //     break;
-
         case 7:
-            printf("enter the posistion and element\n");
-            // int pos; 
+            reverseRead(first);
+            break;
+
+        case 8:
+            printf("enter the posistion\n");
+            // int pos;
             scanf("%d", &pos);
             deleteAtPos(&first, pos);
             break;
-
-        // case 8:
-        //     reverse(&first);
-        //     break;
 
         default:
             printf("Invalid choice \n");
             exit(1);
             break;
         }
+        // 9742261929
     }
     return (0);
 }
