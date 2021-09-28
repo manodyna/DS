@@ -17,7 +17,7 @@ void display(NODE *head)
     }
     else
     {
-        while (temp != head)
+        while (temp->next != head)
         {
             printf("%d\t", temp->data);
             temp = temp->next;

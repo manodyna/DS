@@ -33,9 +33,11 @@ void insertRear(int d, NODE **head)
     }
     else
     {
-        last = (*head)->prev;
-        temp->next = *head;
-        temp->prev = last;
-        (*head)->prev = temp;
+        last=(*head)->prev;
+        last->next=temp;
+        temp->prev=last;
+        (*head)->prev=temp;
+        temp->next=*head;
+        *head=temp;
     }
 }
