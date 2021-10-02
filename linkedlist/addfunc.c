@@ -8,7 +8,7 @@ void insertFront(int d, NODE **first)
     temp->data = d;
     if (*first == NULL)
     {
-        // *first because the location should of first should change to the location of temp
+        // *first because the location of first should change to the location of temp
         *first = temp;
     }
     else

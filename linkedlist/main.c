@@ -9,7 +9,7 @@
 int main()
 {
     NODE *first=NULL;
-    int choice, d;
+    int choice, d,c;
     printf("Enter your choice \n1) Insert data at front of the list\n2) Display the list\n");
     printf("3) Insert data at rear end\n4) Delete at front\n5) Delete at rear\n6) Insert at position\n7) Delete at position\n");
     printf("8) Delete at position\n9) Reverse the list\n");
@@ -72,6 +72,22 @@ int main()
         case 8:
             reverse(&first);
             break;
+        
+        case 9:
+            // int c;
+            c=count(first, 3);
+            printf("%d", c);
+            break;
+
+        case 10:
+            c=isPalindrome(first);
+            if (c==1)
+            {
+                printf("is palindrome");
+            }else{
+                printf("not palindrome");
+            }
+            
 
         default:
             printf("Invalid choice \n");

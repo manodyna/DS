@@ -42,7 +42,7 @@ int pop(stack *s)
     {
         // decrement the top
         int x;
-        (s->top)--;
+        --(s->top);
         x=s->st[s->top];
         return (x);
     }
@@ -65,7 +65,7 @@ void display(stack *s){
     {
         printf("empty stack\n");
     }else{
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             printf("%d\t", s->st[i]);
         }

@@ -65,6 +65,10 @@ int main()
             scanf("%d", &pos);
             deleteAtPos(&first, pos);
             break;
+        case 9:
+            deleteAlternate(&first);
+            display(first);
+            break;
 
         default:
             printf("Invalid choice \n");
