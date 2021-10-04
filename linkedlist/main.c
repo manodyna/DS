@@ -23,7 +23,7 @@ int main()
         case 1:
             printf("Enter the element\n");
             scanf("%d", &d);
-            // &first because i have to pass the adress of the first node(&first) to the parameter expecting a pointer
+            // &first because i have to pass the adress of the first node(&first) to the parameter expecting a pointer to a pointer so pass address of an address
             insertFront(d, &first);
             break;
 
@@ -64,7 +64,7 @@ int main()
 
         case 7:
             printf("enter the posistion and element\n");
-            // int pos;ß
+            // int pos;
             scanf("%d", &pos);
             deleteAtPos(&first, pos);
             break;
