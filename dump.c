@@ -1,95 +1,112 @@
-#include <stddef.h>
+//Binary Search Tree
 #include <stdio.h>
 #include <stdlib.h>
-
-typedef struct node{
+#include <ctype.h>
+#include <math.h>
+struct BST
+{
     int data;
-    struct node *llink, *rlink;
-    int rthread, lthread;
-}node;
-
-struct tree{
-    node *root;
+    struct BST *rlink;
+    struct BST *llink;
 };
-
-typedef struct tree tree;
-
-node *initialize(){
-    tree *new=malloc(sizeof(tree));
-    new->root=NULL;
-    return (new);
+typedef struct BST bin;
+bin *getnode(int data)
+{
+    bin *temp = (bin *)malloc(sizeof(bin));
+    if (temp == NULL)
+    {
+        printf("No enough space in heap");
+        return (NULL);
+    }
+    else
+    {
+        temp->data = data;
+        temp->rlink = temp->llink = NULL;
+        return temp;
+    }
 }
-
-void insert(tree *root, int ele){
-    node *temp = malloc(sizeof(node));
-    if(temp==NULL){
+void inorder(bin *root)
+{
+    if (root == NULL)
         return;
-    }else{
-        temp->data=ele;
-        temp->rlink=temp->llink=NULL;
-        temp->rthread=temp->lthread=1;
-        node *cur=root;
-        if(cur==NULL){
-            tree->root->root=temp;
-            return;
+    inorder(root->llink);
+    printf("\t%d\n", root->data);
+    inorder(root->rlink);
+}
+bin *create(char *postfix)
+{
+    bin *temp;
+    bin **s;
+    s = malloc(sizeof(bin) * 100);
+    int top = 0;
+    char symbol;
+    int i;
+    for (i = 0; (symbol = postfix[i]) != '\0'; i++)
+    {
+        temp = malloc(sizeof(bin));
+
+        if (temp == NULL)
+            return (NULL);
+        else
+        {
+            temp->data = symbol;
+            temp->rlink = temp->llink = NULL;
         }
-        while(1){
-            if(ele<cur->data){
-                if(cur->lthread==0){
-                    cur=cur->llink;
-                }
-                    else{
-                    break;
-                }
-            }
-
-            else if(ele>cur->data){
-                if(cur->rthread==0){
-                    cur=cur->rlink;
-                }
-                else{
-                    break;
-                }
-            }
+        if (isalnum(symbol))
+        {
+            s[top++] = temp;
         }
-
-        if(ele<cur->data){
-            temp->llink=cur->llink;
-            temp->rlink=cur;
-            cur->lthread=0;
-            cur->llink=temp;
-
-        }   
-        else{
-            temp->rlink=cur->rlink;
-            temp->llink=cur;
-            cur->rlink=temp;
-            cur->rthread=0;
+        else
+        {
+            temp->rlink = s[--top];
+            temp->llink = s[--top];
+            s[top++] = temp;
         }
+    }
+    return (s[--top]);
+}
+float eval(bin *root)
+{
+    float num;
+    switch (root->data)
+    {
+    case '+':
+        return (eval(root->rlink) + eval(root->llink));
+        break;
 
+    case '-':
+        return (eval(root->rlink) - eval(root->llink));
+        break;
+
+    case '*':
+        return (eval(root->rlink) * eval(root->llink));
+        break;
+    case '/':
+        return (eval(root->rlink) / eval(root->llink));
+        break;
+    case '$':
+    case '^':
+        return (pow(eval(root->rlink), eval(root->llink)));
+    default:
+        if (isalpha(root->data))
+        {
+            printf("%c=", root->data);
+            scanf("%f", &num);
+            return (num);
+        }
+        else
+            return (root->data - '0');
     }
 }
 
-node* inorder(node *root){
-    if(root==NULL){
-        printf("empty\n");
-        return;
-    }else if(root->lthread=1){
-        
-    }
-}
-
-int main(){
-    int choice, data;
-    tree *root=initialize();
-    while(1){
-        printf("insert exit exit\n");
-        prinf("enter",&choice);
-        switch(choice){
-            case 1:
-            printf("data\n");
-            scanf("%d", &data);
-            inorder(root);
-        }
-    }
+int main()
+{
+    int ele;
+    int choice;
+    bin *root = NULL;
+    char *postfix;
+    printf("enter the postfix expression\n");
+    scanf("%s", postfix);
+    root = create(postfix);
+    printf("%f", eval(root));
 }
