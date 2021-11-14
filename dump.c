@@ -1,112 +1,88 @@
-//Binary Search Tree
 #include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <math.h>
-struct BST
+
+
+void heap_bottom(int *h, int n)
 {
-    int data;
-    struct BST *rlink;
-    struct BST *llink;
-};
-typedef struct BST bin;
-bin *getnode(int data)
-{
-    bin *temp = (bin *)malloc(sizeof(bin));
-    if (temp == NULL)
+    int k, i, j, key;
+    for (k = (n - 1) / 2; k >= 0; k--)
     {
-        printf("No enough space in heap");
-        return (NULL);
-    }
-    else
-    {
-        temp->data = data;
-        temp->rlink = temp->llink = NULL;
-        return temp;
+        j = k;
+        key = h[j];
+        i = 2 * j + 1;
+        while (i <= n)
+        {
+            if ((i + 1) <= n)
+            {
+                if (h[i + 1] > h[i])
+                {
+                    i++;
+                }
+            }
+            if (key < h[i])
+            {
+                h[j] = h[i];
+                j = i;
+                i = 2 * j + 1;
+            }
+            else
+                break;
+        }
+        h[j] = key;
     }
 }
-void inorder(bin *root)
+void heapify(int *h, int n)
 {
-    if (root == NULL)
-        return;
-    inorder(root->llink);
-    printf("\t%d\n", root->data);
-    inorder(root->rlink);
-}
-bin *create(char *postfix)
-{
-    bin *temp;
-    bin **s;
-    s = malloc(sizeof(bin) * 100);
-    int top = 0;
-    char symbol;
-    int i;
-    for (i = 0; (symbol = postfix[i]) != '\0'; i++)
+    int i, j, key, k;
+    j = 0;
+    key = h[j];
+    i = 2 * j + 1;
+    while (i <= n)
     {
-        temp = malloc(sizeof(bin));
-
-        if (temp == NULL)
-            return (NULL);
-        else
+        if ((i + 1) <= n)
         {
-            temp->data = symbol;
-            temp->rlink = temp->llink = NULL;
+            if (h[i + 1] > h[i])
+                i++;
         }
-        if (isalnum(symbol))
+        if (key < h[i])
         {
-            s[top++] = temp;
+            h[j] = h[i];
+            j = i;
+            i = (2 * j) + 1;
         }
         else
-        {
-            temp->rlink = s[--top];
-            temp->llink = s[--top];
-            s[top++] = temp;
-        }
+            break;
     }
-    return (s[--top]);
+    h[j] = key;
 }
-float eval(bin *root)
+
+int max_delete(int *h, int *n)
 {
-    float num;
-    switch (root->data)
-    {
-    case '+':
-        return (eval(root->rlink) + eval(root->llink));
-        break;
-
-    case '-':
-        return (eval(root->rlink) - eval(root->llink));
-        break;
-
-    case '*':
-        return (eval(root->rlink) * eval(root->llink));
-        break;
-    case '/':
-        return (eval(root->rlink) / eval(root->llink));
-        break;
-    case '$':
-    case '^':
-        return (pow(eval(root->rlink), eval(root->llink)));
-    default:
-        if (isalpha(root->data))
-        {
-            printf("%c=", root->data);
-            scanf("%f", &num);
-            return (num);
-        }
-        else
-            return (root->data - '0');
-    }
+    int max;
+    max = h[0];
+    h[0] = h[*n - 1];
+    --*n;
+    heapify(h, *n - 1);
+    return (max);
 }
 
 int main()
 {
-    int ele;
-    int choice;
-    bin *root = NULL;
-    char *postfix;
-    printf("enter the postfix expression\n");
-    scanf("%s", postfix);
-    root = create(postfix);
-    printf("%f", eval(root));
+    int n, h[100], max_ele;
+    printf("enter the value ofn\n");
+    scanf("%d", &n);
+    printf("enter the elements\n");
+    for (int i = 0; i < n; i++)
+        scanf("%d", &h[i]);
+    printf("\n before heapify\n");
+    for (int i = 0; i < n; i++)
+        printf("%d\t", h[i]);
+    heap_bottom(h, n - 1);
+    printf("\n After heapify\n");
+    for (int i = 0; i < n; i++)
+        printf("%d\t", h[i]);
+    max_ele = max_delete(h, &n);
+    printf("max =%d is deleted", max_ele);
+    printf("\n After deletion\n");
+    for (int i = 0; i < n; i++)
+        printf("%d\t", h[i]);
 }
