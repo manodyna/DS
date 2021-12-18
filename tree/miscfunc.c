@@ -28,3 +28,4 @@ void search(int data, tree *root)
         search(data, root->right);
     }
 }
+

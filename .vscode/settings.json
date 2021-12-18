@@ -15,6 +15,7 @@
         "streambuf": "c",
         "string_view": "c",
         "tuple": "c",
-        "vector": "c"
+        "vector": "c",
+        "stdio.h": "c"
     }
 }
